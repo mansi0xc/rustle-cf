@@ -6,6 +6,9 @@ fn main() {
     let origin = Point(0, 0, 0);
 
     /*
+    Tuple struct instances are similar to tuples in that you can destructure
+    them into their individual pieces, and you can use a . followed by the 
+    index to access an individual value. 
     Unlike tuples, tuple structs require you to name the type of the 
     struct when you destructure them. For example, we would write let 
     Point(x, y, z) = origin; to destructure the values in the origin 

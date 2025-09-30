@@ -1,0 +1,3 @@
+[submodule "zevrion/lib/forge-std"]
+	path = zevrion/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
