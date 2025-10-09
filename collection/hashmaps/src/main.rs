@@ -15,4 +15,10 @@ fn main() {
     for (key, value) in &scores {
         println!("{key}: {value}");
     }
+
+    let gui = None;
+    let hit: Option<i32> = 89;
+    let git: Option<i8> = None;
+    let str = "hijab";
+    
 }
