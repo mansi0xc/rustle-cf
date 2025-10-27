@@ -22,4 +22,21 @@ mod tests {
         let yam = add(4, 5);
         assert_eq!(yam, 7);
     }
+
+    #[test]
+    fn iit_works() -> Result<(), String> {
+        let result = add(2, 2);
+
+        if result == 7 {
+            Ok(())
+        } else {
+            Err(String::from("two plus two does not equal four"))
+        }
+    }
+
 }
+
+/*
+You can’t use the #[should_panic] annotation on tests that use Result<T, E>. 
+To assert that an operation returns an Err variant, don’t use the question mark 
+operator on the Result<T, E> value. Instead, use assert!(value.is_err()). */
