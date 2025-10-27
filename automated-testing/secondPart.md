@@ -1,10 +1,10 @@
-### Controlling how tests are run
+## Controlling how tests are run
 
 We have 2 options for command line - one for cargo test and another for the test binaries.
 
-```cargo test --help``` => cargo test
+```$ cargo test --help``` => cargo test
 
-```cargo test -- --help``` => test binaries
+```$ cargo test -- --help``` => test binaries
 
 ```$ cargo test -- --test-threads=1``` => to run tests one by one, single thread only
 this prevents tests being run in parallel threads
