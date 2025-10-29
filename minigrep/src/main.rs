@@ -1,4 +1,5 @@
-use std::{ env, fs };
+use std::{ env, fs, process, error::Error };
+use minigrep::search;
 
 struct Config {
     query: String,
@@ -6,14 +7,14 @@ struct Config {
 }
 
 impl Config {
-    fn new(args: &[String]) -> Config {
+    fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            panic!("not enough arguments")
+            return Err("not enough arguments");
         }
         let query = args[1].clone();
         let file_path = args[2].clone();
 
-        Config { query, file_path }
+        Ok(Config { query, file_path })
     }
 }
 fn main() {
@@ -21,12 +22,32 @@ fn main() {
     // dbg!(args);
 
     // let (query, file_path) = parse_config(&args);
-    let config = Config::new(&args);
+    // let config = Config::build(&args);
+
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguements : {err}");
+        process::exit(1);
+    });
 
     println!("Searching for {}", config.query);
     println!("In file path {}", config.file_path);
 
-    let contents = fs::read_to_string(config.file_path).expect("Should have been able to read file.");
+    // run(config);
 
-    println!("With text: \n{contents}");
+    if let Err(e) = run(config) {
+        println!("Application error : {e}");
+        process::exit(1);
+    }
+}
+
+fn run(config: Config) -> Result<(), Box<dyn Error>>{
+    // let contents = fs::read_to_string(config.file_path).expect("Should have been able to read file.");
+    let contents = fs::read_to_string(config.file_path)?;
+    // println!("With text: \n{contents}");
+
+    for line in search(&config.query, &contents) {
+        println!("{line}");
+    }
+
+    Ok(())
 }
